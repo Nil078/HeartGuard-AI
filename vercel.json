@@ -1,0 +1,17 @@
+{
+  "functions": {
+    "HeartDisease/api/index.py": {
+      "includeFiles": "HeartDisease/heart_disease_model.pkl,HeartDisease/model_metadata.json,HeartDisease/data/**,HeartDisease/stitch_screens/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/HeartDisease/api/index"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/HeartDisease/public/$1"
+    }
+  ]
+}

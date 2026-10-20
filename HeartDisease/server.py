@@ -30,7 +30,7 @@ from utils.risk_rules import evaluate_lifestyle_suggestions, evaluate_risk_facto
 from utils.validation import validate_inputs
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-STATIC_DIR = PROJECT_ROOT / "static"
+STATIC_DIR = PROJECT_ROOT / "public" if (PROJECT_ROOT / "public").exists() else PROJECT_ROOT / "static"
 MODEL_PATH = PROJECT_ROOT / "heart_disease_model.pkl"
 METADATA_PATH = PROJECT_ROOT / "model_metadata.json"
 
@@ -128,15 +128,26 @@ def serve_index():
 
 @app.route("/<path:path>")
 def serve_static(path: str):
+    # Reject API subpaths falling through
+    if path.startswith("api/"):
+        return jsonify({"error": f"API endpoint not found: /{path}"}), 404
+
     file_path = STATIC_DIR / path
     if file_path.exists() and file_path.is_file():
         return send_from_directory(str(STATIC_DIR), path)
+
+    # Return 404 for missing assets (CSS, JS, images) so browser doesn't get index.html
+    if any(path.endswith(ext) for ext in [".css", ".js", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".json", ".woff", ".woff2", ".ttf"]):
+        return f"Asset not found: {path}", 404
+
+    # Single-page navigation fallback
     return send_from_directory(str(STATIC_DIR), "index.html")
 
 
-# ── API Endpoints ─────────────────────────────────────────────────────────────
+# ── API Endpoints (Dual /api/* and /* routes to handle Vercel rewrites) ────────
 
 @app.route("/api/health", methods=["GET"])
+@app.route("/health", methods=["GET"])
 def health():
     return jsonify({
         "status": "healthy",
@@ -148,13 +159,17 @@ def health():
 
 
 @app.route("/api/metadata", methods=["GET"])
+@app.route("/metadata", methods=["GET"])
 def get_metadata():
     if metadata is None:
         return jsonify({"error": "Model metadata not loaded"}), 500
     return jsonify(metadata)
 
 
+@app.route("/api/dataset", methods=["GET"])
+@app.route("/dataset", methods=["GET"])
 @app.route("/api/dataset/stats", methods=["GET"])
+@app.route("/dataset/stats", methods=["GET"])
 def get_dataset_stats():
     if dataset_stats is None:
         return jsonify({"error": "Dataset statistics not available"}), 500
@@ -162,6 +177,7 @@ def get_dataset_stats():
 
 
 @app.route("/api/predict", methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def predict():
     if model is None:
         return jsonify({"error": "Machine learning model is not available"}), 503
@@ -234,6 +250,7 @@ def predict():
 
 
 @app.route("/api/report", methods=["POST"])
+@app.route("/report", methods=["POST"])
 def download_report():
     if model is None or metadata is None:
         return jsonify({"error": "Model or metadata not ready"}), 503

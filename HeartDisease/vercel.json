@@ -1,7 +1,12 @@
 {
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "heart_disease_model.pkl,model_metadata.json,data/**,stitch_screens/**"
+    }
+  },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "/api/index"
     }
   ]
