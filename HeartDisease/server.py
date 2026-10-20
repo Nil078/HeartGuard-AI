@@ -31,8 +31,25 @@ from utils.validation import validate_inputs
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PROJECT_ROOT / "public" if (PROJECT_ROOT / "public").exists() else PROJECT_ROOT / "static"
-MODEL_PATH = PROJECT_ROOT / "heart_disease_model.pkl"
-METADATA_PATH = PROJECT_ROOT / "model_metadata.json"
+
+
+def _resolve_asset_path(filename: str) -> Path:
+    candidates = [
+        PROJECT_ROOT / filename,
+        Path.cwd() / filename,
+        Path(__file__).resolve().parent / filename,
+        Path(__file__).resolve().parent.parent / filename,
+        Path("/var/task") / filename,
+        Path("/var/task/HeartDisease") / filename,
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return PROJECT_ROOT / filename
+
+
+MODEL_PATH = _resolve_asset_path("heart_disease_model.pkl")
+METADATA_PATH = _resolve_asset_path("model_metadata.json")
 
 app = Flask(__name__, static_folder=str(STATIC_DIR))
 CORS(app)
@@ -146,9 +163,14 @@ def serve_static(path: str):
 
 # ── API Endpoints (Dual /api/* and /* routes to handle Vercel rewrites) ────────
 
+@app.route("/api", methods=["GET"])
+@app.route("/api/", methods=["GET"])
+@app.route("/api/index", methods=["GET", "POST", "OPTIONS"])
 @app.route("/api/health", methods=["GET"])
 @app.route("/health", methods=["GET"])
 def health():
+    if request.method == "POST":
+        return predict()
     return jsonify({
         "status": "healthy",
         "model_loaded": model is not None,
@@ -310,6 +332,30 @@ def download_report():
         as_attachment=True,
         download_name="HeartGuard_Patient_Assessment_Report.pdf",
     )
+
+
+@app.errorhandler(404)
+def handle_404(e):
+    if request.path.startswith("/api"):
+        return jsonify({"error": f"API endpoint not found: {request.path}"}), 404
+    file_path = STATIC_DIR / "index.html"
+    if file_path.exists():
+        return send_from_directory(str(STATIC_DIR), "index.html")
+    return "Not Found", 404
+
+
+@app.errorhandler(405)
+def handle_405(e):
+    if request.path.startswith("/api"):
+        return jsonify({"error": f"Method {request.method} not allowed on {request.path}"}), 405
+    return "Method Not Allowed", 405
+
+
+@app.errorhandler(500)
+def handle_500(e):
+    if request.path.startswith("/api"):
+        return jsonify({"error": "Internal server error", "details": str(e)}), 500
+    return "Internal Server Error", 500
 
 
 # Initialize model and metadata before serving

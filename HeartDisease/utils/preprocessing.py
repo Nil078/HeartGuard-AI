@@ -89,6 +89,18 @@ CATEGORY_DISPLAY["thal"][0] = "Unknown / missing"
 def load_raw_dataset(path: Path | None = None) -> pd.DataFrame:
     csv_path = path or DATA_PATH
     if not csv_path.exists():
+        candidates = [
+            PROJECT_ROOT / "data" / "heart_disease.csv",
+            Path.cwd() / "data" / "heart_disease.csv",
+            Path(__file__).resolve().parent.parent / "data" / "heart_disease.csv",
+            Path("/var/task/data/heart_disease.csv"),
+            Path("/var/task/HeartDisease/data/heart_disease.csv"),
+        ]
+        for c in candidates:
+            if c.exists():
+                csv_path = c
+                break
+    if not csv_path.exists():
         raise FileNotFoundError(
             f"Dataset not found at {csv_path}. Place heart_disease.csv in data/."
         )

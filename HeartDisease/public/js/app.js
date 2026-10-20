@@ -190,7 +190,14 @@ async function handleFormSubmit(e) {
       body: JSON.stringify(formData),
     });
 
-    const data = await res.json();
+    let data;
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await res.json();
+    } else {
+      const text = await res.text();
+      throw new Error(`Server returned unexpected format (${res.status}): ${text.slice(0, 100)}`);
+    }
 
     if (!res.ok) {
       const err = data.validation_errors ? data.validation_errors.join('; ') : (data.error || 'Prediction failed');
