@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeartGuard AI — Heart Disease Detection Using Machine Learning</title>
+  <meta name="description" content="A clinical cardiovascular risk stratification web system powered by machine learning, analyzing 13 biometric patient features against the validated UCI Cleveland cohort.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Navigation Bar ─────────────────────────────────────────────────── -->
+  <header class="navbar" id="main-nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="brand-link" id="brand-link">
+        <div class="brand-icon-box">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-title">HeartGuard <span>AI</span></span>
+          <span class="brand-sub">Clinical Risk Stratification</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#hero"               class="nav-link active">Home</a></li>
+          <li><a href="#prediction-studio"  class="nav-link">Prediction</a></li>
+          <li><a href="#analytics-section"  class="nav-link">Analytics</a></li>
+          <li><a href="#benchmark-section"  class="nav-link">Model Performance</a></li>
+          <li><a href="#about-section"      class="nav-link">About Project</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="status-indicator" id="system-status-indicator">
+          <span class="status-dot"></span>
+          <span id="model-status-text">Logistic Regression — Active</span>
+        </div>
+        <a href="#prediction-studio" class="btn btn-primary btn-sm" id="nav-cta-btn">Start Assessment</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Hero Section ───────────────────────────────────────────────────── -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: Text + KPIs -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="status-dot"></span>
+            Machine Learning • Healthcare
+          </div>
+
+          <h1 class="hero-title">
+            Heart Disease Detection<br>
+            Using <span class="gradient-text">Machine Learning</span>
+          </h1>
+
+          <p class="hero-desc">
+            Analyze clinical patient attributes and generate an objective, machine-learning-based risk stratification for cardiovascular disease. Built on the validated UCI Cleveland clinical cohort with zero data leakage.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#prediction-studio" class="btn btn-primary btn-lg" id="hero-start-btn">
+              Start Prediction
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+            <a href="#benchmark-section" class="btn btn-secondary btn-lg" id="hero-view-project-btn">
+              View Benchmark
+            </a>
+          </div>
+
+          <!-- KPI Strip -->
+          <div class="hero-kpis">
+            <div class="kpi-item">
+              <div class="kpi-val" id="kpi-recall">90.9<span>%</span></div>
+              <div class="kpi-label">Test Sensitivity / Recall</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-val" id="kpi-auc">0.9026</div>
+              <div class="kpi-label">Test ROC-AUC</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-val">303</div>
+              <div class="kpi-label">Cleveland Patients</div>
+            </div>
+            <div class="kpi-item">
+              <div class="kpi-val">13</div>
+              <div class="kpi-label">Clinical Features</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: ECG Monitor + Anatomical Heart -->
+        <div class="hero-visual">
+          <div class="hero-visual-card">
+            <div class="card-decor-circle"></div>
+
+
+
+            <!-- ECG Header -->
+            <div class="monitor-header">
+              <div class="monitor-lead">
+                <span class="lead-tag">LEAD II</span>
+                <span class="lead-status">Real-Time Telemetry</span>
+              </div>
+              <div class="monitor-rate">
+                <div class="bpm-number" id="live-bpm-display">72</div>
+                <div class="bpm-label">Heart Rate (BPM)</div>
+              </div>
+            </div>
+
+            <!-- Animated ECG Waveform -->
+            <div class="ecg-screen">
+              <div class="ecg-grid-overlay"></div>
+              <svg class="ecg-svg" viewBox="0 0 500 100" preserveAspectRatio="none">
+                <path class="ecg-path" d="M 0,50 L 60,50 L 80,48 L 90,52 L 100,50 L 120,50 L 130,35 L 140,75 L 150,5 L 165,95 L 175,50 L 195,50 L 210,40 L 230,50 L 310,50 L 330,48 L 340,52 L 350,50 L 370,50 L 380,35 L 390,75 L 400,5 L 415,95 L 425,50 L 445,50 L 460,40 L 480,50 L 500,50"/>
+              </svg>
+            </div>
+
+            <!-- Biometric Readouts -->
+            <div class="monitor-params-grid">
+              <div class="param-box">
+                <div class="param-name">Resting BP</div>
+                <div class="param-value">120<span class="param-unit">mmHg</span></div>
+              </div>
+              <div class="param-box">
+                <div class="param-name">Cholesterol</div>
+                <div class="param-value">195<span class="param-unit">mg/dl</span></div>
+              </div>
+              <div class="param-box">
+                <div class="param-name">ST Segment</div>
+                <div class="param-value">Normal<span class="param-unit">0.0mm</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Platform Features ─────────────────────────────────────────────── -->
+  <section class="section section-dark" id="features-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Capabilities</span>
+        <h2 class="section-title" style="color:#ffffff;">Engineered for Clinical Decision Support</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.6);">Designed for medical transparency — combining ML inference with auditable clinical risk guidelines.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">🔍</div>
+          <h3>Biometric Risk Prediction</h3>
+          <p>Evaluates 13 multidimensional clinical markers including resting hemodynamics, fluoroscopy, and nuclear cardiology perfusion.</p>
+          <span class="feature-badge">Standard Cleveland Protocol</span>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">📋</div>
+          <h3>Clinical Assessment Reports</h3>
+          <p>Deterministic rule-based risk factors, personalised lifestyle modifications, and one-click downloadable patient PDF summaries.</p>
+          <span class="feature-badge">ACC/AHA Guidelines</span>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">📊</div>
+          <h3>Exploratory Data Analytics</h3>
+          <p>Interactive biometric distributions, feature correlation matrices, and target-stratified patient subgroup analysis.</p>
+          <span class="feature-badge">Validated 303 Cohort</span>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">📈</div>
+          <h3>Multi-Model Benchmark</h3>
+          <p>Transparent evaluation comparing 6 distinct algorithms with real Accuracy, Recall, Precision, F1, and ROC-AUC curves.</p>
+          <span class="feature-badge">Stratified 5-Fold CV</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ML Workflow ────────────────────────────────────────────────────── -->
+  <section class="section" style="background:var(--crimson-950);" id="workflow-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Methodology</span>
+        <h2 class="section-title" style="color:#ffffff;">End-to-End Machine Learning Pipeline</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.58);">Strict train/test segregation, zero data leakage, and hyperparameter cross-validation throughout.</p>
+      </div>
+
+      <div class="workflow-track">
+        <div class="workflow-card"><div class="step-num">1</div><div class="step-name">Data Ingestion</div><div class="step-desc">UCI Cleveland cohort — 13 physiological attributes</div></div>
+        <div class="workflow-card"><div class="step-num">2</div><div class="step-name">Diagnostics</div><div class="step-desc">Duplicate removal & outlier validation bounds</div></div>
+        <div class="workflow-card"><div class="step-num">3</div><div class="step-name">EDA</div><div class="step-desc">Class distributions & clinical correlations</div></div>
+        <div class="workflow-card"><div class="step-num">4</div><div class="step-name">Stratified Split</div><div class="step-desc">80/20 train-test preserving outcome ratio</div></div>
+        <div class="workflow-card"><div class="step-num">5</div><div class="step-name">Pipeline Fit</div><div class="step-desc">Imputation & scaling isolated to training folds only</div></div>
+        <div class="workflow-card"><div class="step-num">6</div><div class="step-name">Model Selection</div><div class="step-desc">Recall (0.35) + ROC-AUC (0.30) weighted selection</div></div>
+        <div class="workflow-card"><div class="step-num">7</div><div class="step-name">Serving</div><div class="step-desc">Deterministic inference & instant probabilistic scoring</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Prediction Studio ─────────────────────────────────────────────── -->
+  <section class="section prediction-section" id="prediction-studio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Clinical Inference Studio</span>
+        <h2 class="section-title" style="color:var(--crimson-900);">Heart Disease Prediction</h2>
+        <p class="section-subtitle" style="color:var(--grey-600);">Enter the patient's clinical measurements to generate an instant probabilistic cardiovascular risk assessment.</p>
+      </div>
+
+      <div class="prediction-wrapper">
+        <!-- Preset Fast-Fill Toolbar -->
+        <div class="preset-bar">
+          <div class="preset-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Demonstration Presets (Viva / Evaluation Mode):
+          </div>
+          <div class="preset-buttons">
+            <button type="button" class="btn-preset" id="preset-low-risk">✓ Load Low-Risk Profile</button>
+            <button type="button" class="btn-preset" id="preset-high-risk">⚠️ Load High-Risk Profile</button>
+            <button type="button" class="btn-preset" id="preset-reset">↺ Reset Form</button>
+          </div>
+        </div>
+
+        <!-- Clinical Form -->
+        <form id="prediction-form" autocomplete="off">
+          <div class="form-panels-grid">
+
+            <!-- Panel 1: Demographics -->
+            <div class="form-panel">
+              <div class="panel-title"><span>👤</span> Patient Demographics & Symptoms</div>
+              <div class="field-group">
+                <div class="field-label"><label for="input-age">Age (Years)</label><span class="field-hint">1 – 120</span></div>
+                <input type="number" id="input-age" name="age" class="input-control" value="54" min="1" max="120" required>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-sex">Biological Sex</label><span class="field-hint">Sex at birth</span></div>
+                <select id="select-sex" name="sex" class="select-control" required>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-cp">Chest Pain Type (cp)</label><span class="field-hint">Clinical classification</span></div>
+                <select id="select-cp" name="cp" class="select-control" required>
+                  <option value="0">Typical Angina (Code 0)</option>
+                  <option value="1">Atypical Angina (Code 1)</option>
+                  <option value="2">Non-Anginal Discomfort (Code 2)</option>
+                  <option value="3">Asymptomatic (Code 3)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Panel 2: Hemodynamics -->
+            <div class="form-panel">
+              <div class="panel-title"><span>🩸</span> Hemodynamic & Lipid Profile</div>
+              <div class="field-group">
+                <div class="field-label"><label for="input-trestbps">Resting Blood Pressure (trestbps)</label><span class="field-hint">mm Hg (60–260)</span></div>
+                <input type="number" id="input-trestbps" name="trestbps" class="input-control" value="130" min="60" max="260" required>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="input-chol">Serum Cholesterol (chol)</label><span class="field-hint">mg/dl (80–700)</span></div>
+                <input type="number" id="input-chol" name="chol" class="input-control" value="240" min="80" max="700" required>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-fbs">Fasting Blood Sugar &gt; 120 mg/dl (fbs)</label><span class="field-hint">Diabetic screening</span></div>
+                <select id="select-fbs" name="fbs" class="select-control" required>
+                  <option value="0">No (&le; 120 mg/dl)</option>
+                  <option value="1">Yes (&gt; 120 mg/dl)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Panel 3: Exercise Testing & ECG -->
+            <div class="form-panel">
+              <div class="panel-title"><span>⚡</span> Exercise Testing & Electrocardiography</div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-restecg">Resting ECG Result (restecg)</label><span class="field-hint">Baseline tracing</span></div>
+                <select id="select-restecg" name="restecg" class="select-control" required>
+                  <option value="0">Normal</option>
+                  <option value="1">ST-T Wave Abnormality</option>
+                  <option value="2">Left Ventricular Hypertrophy (LVH)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="input-thalach">Max Heart Rate Achieved (thalach)</label><span class="field-hint">bpm (50–250)</span></div>
+                <input type="number" id="input-thalach" name="thalach" class="input-control" value="150" min="50" max="250" required>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-exang">Exercise-Induced Angina (exang)</label><span class="field-hint">Exertional chest tightness</span></div>
+                <select id="select-exang" name="exang" class="select-control" required>
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="input-oldpeak">ST Depression / Oldpeak</label><span class="field-hint">mm (0.0–10.0)</span></div>
+                <input type="number" id="input-oldpeak" name="oldpeak" class="input-control" value="1.0" min="0.0" max="10.0" step="0.1" required>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-slope">Slope of Peak ST Segment (slope)</label><span class="field-hint">Stress test morphology</span></div>
+                <select id="select-slope" name="slope" class="select-control" required>
+                  <option value="0">Upsloping</option>
+                  <option value="1">Flat</option>
+                  <option value="2">Downsloping</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Panel 4: Advanced Diagnostics -->
+            <div class="form-panel">
+              <div class="panel-title"><span>🔬</span> Advanced Diagnostic Indicators</div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-ca">Major Vessels — Fluoroscopy (ca)</label><span class="field-hint">Count (0–3)</span></div>
+                <select id="select-ca" name="ca" class="select-control" required>
+                  <option value="0">0 Major Vessels</option>
+                  <option value="1">1 Major Vessel</option>
+                  <option value="2">2 Major Vessels</option>
+                  <option value="3">3 Major Vessels</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <div class="field-label"><label for="select-thal">Thalassemia Perfusion Status (thal)</label><span class="field-hint">Nuclear cardiology scan</span></div>
+                <select id="select-thal" name="thal" class="select-control" required>
+                  <option value="2">Normal Perfusion (Code 2)</option>
+                  <option value="1">Fixed Defect (Code 1)</option>
+                  <option value="3">Reversible Defect (Code 3)</option>
+                </select>
+              </div>
+
+              <div class="educational-disclaimer-box" style="margin-top:24px;">
+                <span>⚠️</span>
+                <span><strong>Clinical Validation Note:</strong> Inputs checked against ACC/AHA clinical bounds before inference. Zero synthetic or hardcoded data accepted.</span>
+              </div>
+            </div>
+
+          </div><!-- /form-panels-grid -->
+
+          <!-- Submit Bar -->
+          <div class="form-actions-bar">
+            <div class="form-disclaimer-note">
+              <span>🩺</span>
+              <span>All 13 parameters are processed by the active Pipeline. Test Recall: 90.91% | Test ROC-AUC: 0.9026.</span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" id="submit-prediction-btn">
+              <span id="btn-text">Predict Heart Disease</span>
+              <svg id="btn-spinner" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.3"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── Result Card ────────────────────────────────────────────────── -->
+      <div class="result-card-container" id="result-container">
+        <div class="result-card not-detected" id="result-card-box">
+
+          <!-- Banner -->
+          <div class="result-header-banner">
+            <div class="result-status-block">
+              <div class="result-icon-orb" id="result-icon-orb">✓</div>
+              <div>
+                <span class="result-title-badge" id="result-badge-text">Clinical Assessment Complete</span>
+                <h3 class="result-heading" id="result-heading-text">No Heart Disease Detected</h3>
+              </div>
+            </div>
+            <div class="result-metric-display">
+              <div class="result-metric-num" id="result-score-num">8.2%</div>
+              <div class="result-metric-caption" id="result-score-caption">Estimated Risk Score</div>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="result-body">
+            <!-- Probability Bar -->
+            <div class="proba-bar-box">
+              <div class="proba-labels">
+                <span id="proba-label-0" style="color:var(--success);">P(No Disease / Class 0): 91.8%</span>
+                <span id="proba-label-1" style="color:var(--danger);">P(Heart Disease / Class 1): 8.2%</span>
+              </div>
+              <div class="proba-track">
+                <div class="proba-segment-0" id="proba-bar-0" style="width:91.8%;"></div>
+                <div class="proba-segment-1" id="proba-bar-1" style="width:8.2%;"></div>
+              </div>
+            </div>
+
+            <!-- Risk Factors -->
+            <h4 style="font-size:1.05rem;font-weight:700;color:var(--crimson-900);margin-bottom:8px;">Primary Clinical Risk Contributors</h4>
+            <div class="risk-tags-container" id="risk-factors-container">
+              <span class="risk-tag optimal">✓ No elevated clinical risk factors flagged</span>
+            </div>
+
+            <!-- Lifestyle Suggestions -->
+            <h4 style="font-size:1.05rem;font-weight:700;color:var(--crimson-900);margin-bottom:12px;">Tailored Lifestyle & Preventative Guidance</h4>
+            <div class="lifestyle-grid" id="lifestyle-suggestions-container"></div>
+
+            <!-- Biometric Summary -->
+            <h4 style="font-size:1.05rem;font-weight:700;color:var(--crimson-900);margin-bottom:12px;">Patient Biometric Profile Summary</h4>
+            <div class="biometric-summary-grid" id="biometric-summary-grid"></div>
+
+            <!-- Footer Actions -->
+            <div class="result-footer-actions">
+              <div class="educational-disclaimer-box" style="flex-grow:1;">
+                <span>⚖️</span>
+                <span><strong>Educational Prototype Disclaimer:</strong> This prediction is generated by a machine-learning model for educational/research purposes only. It is not an authorised medical diagnosis. Consult a qualified physician for clinical care.</span>
+              </div>
+              <button type="button" class="btn btn-primary" id="download-pdf-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Clinical PDF Report
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Exploratory Analytics ─────────────────────────────────────────── -->
+  <section class="section section-dark" id="analytics-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Exploratory Insights</span>
+        <h2 class="section-title" style="color:#ffffff;">Cleveland Cohort Data Analytics</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.58);">Real statistical distributions extracted from the 303 validated patient records.</p>
+      </div>
+
+      <div class="analytics-grid">
+        <!-- Target Balance -->
+        <div class="analytics-card">
+          <div class="chart-title">
+            <span>Target Class Balance</span>
+            <span class="chart-meta">303 Records</span>
+          </div>
+          <div class="chart-bar-list">
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Class 0: No Heart Disease</span><span id="target-count-0">138 patients (45.5%)</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:45.5%;background:var(--success);"></div></div>
+            </div>
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Class 1: Heart Disease Detected</span><span id="target-count-1">165 patients (54.5%)</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:54.5%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sex Distribution -->
+        <div class="analytics-card">
+          <div class="chart-title">
+            <span>Biological Sex Distribution</span>
+            <span class="chart-meta">Cohort Breakdown</span>
+          </div>
+          <div class="chart-bar-list">
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Male Patients</span><span id="sex-count-male">207 patients (68.3%)</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:68.3%;"></div></div>
+            </div>
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Female Patients</span><span id="sex-count-female">96 patients (31.7%)</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:31.7%;background:var(--red-soft);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chest Pain Distribution -->
+        <div class="analytics-card">
+          <div class="chart-title">
+            <span>Chest Pain Type Distribution</span>
+            <span class="chart-meta">Clinical Presentation</span>
+          </div>
+          <div class="chart-bar-list">
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Typical Angina (0)</span><span>143 cases</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:47.2%;"></div></div>
+            </div>
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Non-Anginal Discomfort (2)</span><span>87 cases</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:28.7%;"></div></div>
+            </div>
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Atypical Angina (1)</span><span>50 cases</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:16.5%;"></div></div>
+            </div>
+            <div class="chart-bar-item">
+              <div class="bar-info"><span>Asymptomatic (3)</span><span>23 cases</span></div>
+              <div class="bar-track"><div class="bar-fill" style="width:7.6%;background:var(--red-soft);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confusion Matrix -->
+        <div class="analytics-card">
+          <div class="chart-title">
+            <span>Test Set Confusion Matrix</span>
+            <span class="chart-meta">N = 61 held-out records</span>
+          </div>
+          <div class="matrix-container">
+            <div></div>
+            <div class="matrix-header">Pred: No Disease (0)</div>
+            <div class="matrix-header">Pred: Disease (1)</div>
+            <div class="matrix-header">Actual: 0</div>
+            <div class="matrix-cell highlight"><div class="matrix-cell-val" id="cm-tn">20</div><div class="matrix-cell-lbl">True Negatives (TN)</div></div>
+            <div class="matrix-cell"><div class="matrix-cell-val" id="cm-fp">8</div><div class="matrix-cell-lbl">False Positives (FP)</div></div>
+            <div class="matrix-header">Actual: 1</div>
+            <div class="matrix-cell"><div class="matrix-cell-val" id="cm-fn">3</div><div class="matrix-cell-lbl">False Negatives (FN)</div></div>
+            <div class="matrix-cell highlight"><div class="matrix-cell-val" id="cm-tp">30</div><div class="matrix-cell-lbl">True Positives (TP)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Model Performance Benchmark ───────────────────────────────────── -->
+  <section class="section" style="background:var(--crimson-900);" id="benchmark-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Scientific Evaluation</span>
+        <h2 class="section-title" style="color:#ffffff;">Multi-Model Validation Benchmark</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.58);">Real metrics measured on the held-out 20% test partition (N = 61). Engine optimised for Recall (0.35) + ROC-AUC (0.30).</p>
+      </div>
+
+      <div class="benchmark-table-wrapper">
+        <table class="benchmark-table" id="benchmark-table">
+          <thead>
+            <tr>
+              <th>Classifier Architecture</th>
+              <th>Test Sensitivity / Recall</th>
+              <th>Test ROC-AUC</th>
+              <th>F1 Score</th>
+              <th>Test Accuracy</th>
+              <th>Precision</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="benchmark-table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Selection Rationale -->
+      <div style="background:rgba(232,0,30,0.08);border:1px solid rgba(232,0,30,0.2);border-left:5px solid var(--red-vivid);border-radius:var(--radius-lg);padding:24px 28px;">
+        <h4 style="font-size:1.05rem;font-weight:700;color:#ffffff;margin-bottom:8px;">Model Selection Criteria</h4>
+        <p id="selection-rationale-text" style="color:rgba(255,255,255,0.68);font-size:0.92rem;line-height:1.6;">
+          Selected Logistic Regression: combined test-set score emphasising recall (weight 0.35) together with ROC-AUC (0.30), F1 (0.20), and accuracy (0.15). In screening contexts, prioritising sensitivity (90.91%) minimises false negative errors while maintaining superior discriminative capability (0.9026 AUC).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About & Academic ────────────────────────────────────────────────── -->
+  <section class="section section-dark" id="about-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Academic Capstone</span>
+        <h2 class="section-title" style="color:#ffffff;">About HeartGuard AI</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.58);">B.Tech Computer Science & Engineering capstone project exploring ML for preventative clinical decision support.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Project Info -->
+        <div class="about-card">
+          <h3 style="font-size:1.25rem;margin-bottom:12px;">Problem Statement & Objectives</h3>
+          <p style="font-size:0.92rem;line-height:1.6;margin-bottom:14px;">
+            Cardiovascular diseases (CVDs) represent the leading cause of global mortality. Early, accessible, and objective risk stratification enables timely lifestyle interventions before irreversible cardiac events occur.
+          </p>
+          <p style="font-size:0.92rem;line-height:1.6;">
+            <strong style="color:#fff;">HeartGuard AI</strong> translates complex patient physiological profiles into transparent risk indications using audited machine learning pipelines, feature attribution metrics, and rule-based clinical guidance.
+          </p>
+
+          <h4 style="color:#ffffff;font-size:1.02rem;margin-top:22px;margin-bottom:8px;">Dataset Specification</h4>
+          <ul style="font-size:0.88rem;line-height:1.6;padding-left:20px;">
+            <li><strong style="color:rgba(255,255,255,0.85);">Source:</strong> UCI Cleveland Heart Disease Cohort (303 patient samples)</li>
+            <li><strong style="color:rgba(255,255,255,0.85);">Target:</strong> Binary angiographic detection (&gt;50% vessel narrowing)</li>
+            <li><strong style="color:rgba(255,255,255,0.85);">Protocol:</strong> Stratified 80/20 split with pipeline-isolated median/mode imputation</li>
+          </ul>
+
+          <h4 style="color:#ffffff;font-size:1.02rem;margin-top:22px;margin-bottom:10px;">Core Technologies</h4>
+          <div class="tech-badges-wrap">
+            <span class="tech-badge">Python 3.10</span>
+            <span class="tech-badge">Scikit-Learn</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">NumPy</span>
+            <span class="tech-badge">Flask REST API</span>
+            <span class="tech-badge">Vanilla CSS3</span>
+            <span class="tech-badge">Modern JavaScript</span>
+            <span class="tech-badge">fpdf2 (PDF)</span>
+          </div>
+        </div>
+
+        <!-- Team -->
+        <div class="about-card">
+          <h3 style="font-size:1.25rem;margin-bottom:12px;">Project Team & Academic Guidance</h3>
+
+          <div class="guide-box">
+            <div class="member-avatar" style="width:48px;height:48px;font-size:1.1rem;">SP</div>
+            <div>
+              <div class="member-name" style="font-size:1.05rem;">Ms. Suvarna Patil</div>
+              <div class="member-degree">Project Guide & Supervisor · Dept. of Computer Engineering</div>
+              <div style="font-size:0.78rem;color:var(--red-soft);font-weight:600;margin-top:2px;">
+                Pimpri Chinchwad College of Engineering (PCCOE), Pune
+              </div>
+            </div>
+          </div>
+
+          <h4 style="color:#ffffff;font-size:1.02rem;margin-top:22px;margin-bottom:12px;">Student Development Team (B.Tech CSE)</h4>
+          <div class="team-grid">
+            <div class="team-member-card"><div class="member-avatar">NC</div><div><div class="member-name">Neel Chourasia</div><div class="member-degree">B.Tech CSE</div></div></div>
+            <div class="team-member-card"><div class="member-avatar">AA</div><div><div class="member-name">Arnav Abhishek</div><div class="member-degree">B.Tech CSE</div></div></div>
+            <div class="team-member-card"><div class="member-avatar">CM</div><div><div class="member-name">Chandan Kumar Malakar</div><div class="member-degree">B.Tech CSE</div></div></div>
+            <div class="team-member-card"><div class="member-avatar">KM</div><div><div class="member-name">Kunal Kumar Mishra</div><div class="member-degree">B.Tech CSE</div></div></div>
+          </div>
+
+          <div style="margin-top:22px;padding:14px;background:rgba(255,255,255,0.04);border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.07);font-size:0.8rem;color:rgba(255,255,255,0.48);">
+            <strong>Dept. of Computer Engineering — PCCOE Pune</strong><br>
+            B.Tech 2nd Year Project (2026)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <div class="brand-icon-box" style="width:32px;height:32px;">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <span class="brand-title" style="font-size:1.15rem;">HeartGuard <span>AI</span></span>
+          </div>
+          <p class="footer-desc">An academic cardiovascular disease risk assessment system leveraging machine learning classification on validated physiological datasets.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#hero" class="footer-link">Home / Telemetry</a></li>
+            <li><a href="#prediction-studio" class="footer-link">Biometric Prediction</a></li>
+            <li><a href="#analytics-section" class="footer-link">Data Analytics</a></li>
+            <li><a href="#benchmark-section" class="footer-link">Model Performance</a></li>
+            <li><a href="#about-section" class="footer-link">Team & Supervision</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Academic Institution</h4>
+          <p style="font-size:0.86rem;line-height:1.6;color:rgba(255,255,255,0.45);">
+            Pimpri Chinchwad College of Engineering (PCCOE)<br>
+            Department of Computer Engineering<br>
+            Sector 26, Pradhikaran, Nigdi, Pune — 411044<br>
+            Supervised by Ms. Suvarna Patil
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 HeartGuard AI · B.Tech CSE 2nd Year Project · All Rights Reserved.</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.35);max-width:530px;text-align:right;">
+          Mandatory Medical Disclaimer: For educational and research demonstration only. Not intended to replace licensed clinical evaluation or diagnosis.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Heart glow animation keyframe injected inline for SVG -->
+  <style>
+    @keyframes heart-glow {
+      from { transform: translate(-50%,-50%) scale(0.85); opacity: 0.6; }
+      to   { transform: translate(-50%,-50%) scale(1.15); opacity: 1.0; }
+    }
+  </style>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

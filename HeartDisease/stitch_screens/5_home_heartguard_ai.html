@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HeartGuard AI - Clinical Precision in Prediction</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0e7c9d",
+                        "surface-container-highest": "#d4e4f8",
+                        "surface-container": "#e3efff",
+                        "inverse-on-surface": "#e8f1ff",
+                        "surface-container-low": "#edf4ff",
+                        "on-surface-variant": "#3f484d",
+                        "on-tertiary-fixed": "#002112",
+                        "surface-bright": "#f7f9ff",
+                        "secondary-container": "#988cff",
+                        "surface": "#f7f9ff",
+                        "outline": "#6f787e",
+                        "on-tertiary-fixed-variant": "#005234",
+                        "on-tertiary-container": "#e6ffed",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#7cd1f6",
+                        "on-secondary-fixed-variant": "#4334a3",
+                        "on-primary-fixed-variant": "#004d63",
+                        "surface-dim": "#ccdcf0",
+                        "on-surface": "#0d1d2b",
+                        "secondary-fixed-dim": "#c7bfff",
+                        "surface-variant": "#d4e4f8",
+                        "inverse-surface": "#233241",
+                        "outline-variant": "#bec8ce",
+                        "tertiary-container": "#008356",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#2e1a8f",
+                        "primary-fixed": "#bce9ff",
+                        "inverse-primary": "#7cd1f6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#6bdba4",
+                        "on-primary": "#ffffff",
+                        "background": "#f7f9ff",
+                        "on-secondary-fixed": "#170065",
+                        "on-primary-container": "#f3faff",
+                        "secondary-fixed": "#e4dfff",
+                        "on-error": "#ffffff",
+                        "on-background": "#0d1d2b",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#88f8bf",
+                        "secondary": "#5b4ebc",
+                        "tertiary": "#006743",
+                        "surface-tint": "#006783",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#daeafe",
+                        "primary": "#00627d",
+                        "on-primary-fixed": "#001f2a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xs": "8px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Open Sans"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 41, 55, 0.08);
+        }
+
+        .glass-warning {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(245, 158, 11, 0.3); /* Amber tint border */
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.05);
+        }
+
+        /* Background Blob Animations */
+        @keyframes blob-float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: blob-float 20s infinite alternate;
+        }
+
+        .blob-1 {
+            top: -10%; left: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(14,124,157,0.3) 0%, rgba(14,124,157,0) 70%);
+            animation-delay: 0s;
+        }
+        .blob-2 {
+            bottom: -20%; right: -10%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(152,140,255,0.25) 0%, rgba(152,140,255,0) 70%);
+            animation-delay: 5s;
+        }
+        .blob-3 {
+            top: 40%; left: 30%; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(188,233,255,0.4) 0%, rgba(188,233,255,0) 70%);
+            animation-delay: 10s;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3efff 0%, #edf4ff 50%, #e6ffed 100%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen relative overflow-x-hidden font-body-md">
+<!-- Background Blobs (Level 1) -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+</div>
+<!-- Top Navigation (Shared Component) -->
+<nav class="fixed top-0 w-full h-[72px] z-50 glass-nav border-b border-white/30 shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-lg h-[72px] w-full max-w-container-max mx-auto">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2 group" href="#">
+<div class="w-10 h-10 rounded-md overflow-hidden bg-white/80 border border-white flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-200 shadow-sm">
+<img alt="HeartGuard AI Logo" class="w-full h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp29ls9mpvJy49GYLrCL853MWQ_UOCpvSkHBHb_qJnGIaTJMTo-ERBvyK89iojXWs6cs7-dQus7UzNZ6si8DNZkfbdIuoEI3L-m0OnGA5xY7FqnIOoijl2t6w2rvOQy32mAydCuUN2RY9polmWFMNRHrhWaJFr-hpcADCCGO9aKCMK2pHpi3Yj96MS4WuP_s60tXwTyd72eZlcLKpeNTQ5CyyAhUewQjeQH8UiHz4SdFVZz2DiABRi"/>
+</div>
+                HeartGuard AI
+            </a>
+<!-- Desktop Navigation Links (hidden on mobile) -->
+<div class="hidden md:flex items-center gap-md h-full">
+<a class="h-full flex items-center text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md hover:text-primary transition-colors" href="#">Home</a>
+<a class="h-full flex items-center text-on-surface-variant font-medium font-body-md text-body-md hover:text-primary transition-colors" href="#">Prediction</a>
+<a class="h-full flex items-center text-on-surface-variant font-medium font-body-md text-body-md hover:text-primary transition-colors" href="#">Analytics</a>
+<a class="h-full flex items-center text-on-surface-variant font-medium font-body-md text-body-md hover:text-primary transition-colors" href="#">Model Performance</a>
+<a class="h-full flex items-center text-on-surface-variant font-medium font-body-md text-body-md hover:text-primary transition-colors" href="#">About</a>
+</div>
+<!-- Trailing Action -->
+<button class="hidden md:flex items-center justify-center bg-primary-container text-white px-6 py-2 rounded-full font-label-md text-label-md font-medium hover:bg-primary transition-colors shadow-sm active:scale-95 duration-200">
+                Try Prediction
+            </button>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-xl px-margin-mobile md:px-lg max-w-container-max mx-auto">
+<!-- Hero Section & Disclaimer -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-xl items-center mt-lg">
+<!-- Hero Typography -->
+<div class="lg:col-span-7 flex flex-col gap-6 relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 glass-panel w-fit rounded-full mb-2">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1; font-size: 18px;">health_and_safety</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Clinical Grade Machine Learning</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface md:text-[56px] md:leading-[64px] text-headline-lg-mobile font-bold tracking-tight">
+                    HeartGuard AI
+                </h1>
+<h2 class="font-headline-lg text-headline-lg text-primary text-headline-md font-medium">
+                    AI-Powered Heart Disease Risk Prediction
+                </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-4">
+                    Leveraging advanced Random Forest modeling to analyze complex cardiovascular indicators. Designed for clinical precision, providing rapid risk assessment to support medical professionals in early intervention strategies.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 mt-8">
+<button class="bg-primary-container text-white px-8 py-4 rounded-full font-label-md text-label-md font-medium hover:bg-primary transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2">
+                        Start Prediction <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="glass-panel text-primary-container border-primary-container px-8 py-4 rounded-full font-label-md text-label-md font-medium hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2">
+                        View Methodology
+                    </button>
+</div>
+</div>
+<!-- Medical Disclaimer Card -->
+<div class="lg:col-span-5 mt-8 lg:mt-0 relative z-10">
+<div class="glass-warning p-8 h-full flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-amber-800">Medical Disclaimer</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        HeartGuard AI is an investigational predictive model designed to assist healthcare professionals. It is <strong>not intended to replace professional medical judgment, diagnosis, or treatment.</strong> All predictions should be verified by a qualified physician using standard clinical protocols.
+                    </p>
+<div class="mt-6 pt-6 border-t border-amber-200/50 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-amber-700">For Investigational Use Only</span>
+<a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1" href="#">Read Full Policy <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="mt-xl">
+<div class="flex items-center gap-2 mb-6 px-2">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Model Performance Metrics</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Metric 1: Model Type -->
+<div class="glass-card p-6 flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container border border-white/60 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline bg-white/40 px-2 py-1 rounded-md">Architecture</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Primary Algorithm</p>
+<p class="font-headline-lg text-headline-lg text-on-surface font-semibold">Random Forest</p>
+</div>
+</div>
+<!-- Metric 2: ROC-AUC -->
+<div class="glass-card p-6 flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-tertiary/10 rounded-full blur-xl"></div>
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-tertiary-container border border-white/60 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">ssid_chart</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary bg-tertiary/10 px-2 py-1 rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> Excellent
+                        </span>
+</div>
+<div class="relative z-10">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">ROC-AUC Score</p>
+<div class="flex items-end gap-2">
+<p class="font-display-lg text-display-lg text-on-surface font-bold">0.92</p>
+<p class="font-label-sm text-label-sm text-outline mb-2">/ 1.0</p>
+</div>
+</div>
+</div>
+<!-- Metric 3: Recall -->
+<div class="glass-card p-6 flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary-container border border-white/60 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">crisis_alert</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline bg-white/40 px-2 py-1 rounded-md">Sensitivity</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Recall (True Positive)</p>
+<div class="flex items-end gap-2">
+<p class="font-display-lg text-display-lg text-on-surface font-bold">0.88</p>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mt-4 overflow-hidden">
+<div class="bg-secondary-container h-1.5 rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+<!-- Metric 4: Dataset Size -->
+<div class="glass-card p-6 flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container border border-white/60 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">database</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Training Dataset</p>
+<div class="flex items-end gap-2">
+<p class="font-display-lg text-display-lg text-on-surface font-bold">300+</p>
+<p class="font-body-md text-body-md text-outline mb-2">Clinical Entries</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-lg mt-xl bg-white/55 backdrop-blur-[20px] border-t border-white/60 transition-all duration-300">
+<div class="flex flex-col items-center gap-md px-margin-mobile md:px-lg max-w-container-max mx-auto font-label-md text-label-md text-on-surface-variant">
+<div class="font-headline-md text-headline-md font-black text-primary mb-2">
+                HeartGuard AI
+            </div>
+<div class="flex flex-wrap justify-center gap-6 mb-4">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-300" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-300" href="#">Medical Methodology</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-300" href="#">Contact</a>
+</div>
+<div class="text-center opacity-80 font-label-sm text-label-sm">
+                © 2024 HeartGuard AI. Clinical Precision in Prediction.
+            </div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HeartGuard AI - Prediction Form</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#0e7c9d",
+                      "surface-container-highest": "#d4e4f8",
+                      "surface-container": "#e3efff",
+                      "inverse-on-surface": "#e8f1ff",
+                      "surface-container-low": "#edf4ff",
+                      "on-surface-variant": "#3f484d",
+                      "on-tertiary-fixed": "#002112",
+                      "surface-bright": "#f7f9ff",
+                      "secondary-container": "#988cff",
+                      "surface": "#f7f9ff",
+                      "outline": "#6f787e",
+                      "on-tertiary-fixed-variant": "#005234",
+                      "on-tertiary-container": "#e6ffed",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#7cd1f6",
+                      "on-secondary-fixed-variant": "#4334a3",
+                      "on-primary-fixed-variant": "#004d63",
+                      "surface-dim": "#ccdcf0",
+                      "on-surface": "#0d1d2b",
+                      "secondary-fixed-dim": "#c7bfff",
+                      "surface-variant": "#d4e4f8",
+                      "inverse-surface": "#233241",
+                      "outline-variant": "#bec8ce",
+                      "tertiary-container": "#008356",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#2e1a8f",
+                      "primary-fixed": "#bce9ff",
+                      "inverse-primary": "#7cd1f6",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#6bdba4",
+                      "on-primary": "#ffffff",
+                      "background": "#f7f9ff",
+                      "on-secondary-fixed": "#170065",
+                      "on-primary-container": "#f3faff",
+                      "secondary-fixed": "#e4dfff",
+                      "on-error": "#ffffff",
+                      "on-background": "#0d1d2b",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#88f8bf",
+                      "secondary": "#5b4ebc",
+                      "tertiary": "#006743",
+                      "surface-tint": "#006783",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#daeafe",
+                      "primary": "#00627d",
+                      "on-primary-fixed": "#001f2a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "xs": "8px",
+                      "xl": "64px",
+                      "base": "4px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "sm": "16px",
+                      "lg": "40px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Open Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Open Sans"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(31, 41, 55, 0.08);
+            border-radius: 20px;
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            transition: all 0.2s ease-in-out;
+        }
+        .glass-input:focus-within {
+            border-color: #0E7C9D;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        /* Custom floating label styles for simplicity */
+        .floating-group {
+            position: relative;
+            padding-top: 24px;
+        }
+        .floating-label {
+            position: absolute;
+            top: 28px;
+            left: 16px;
+            color: #5C6B7A;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+        .floating-group input:focus ~ .floating-label,
+        .floating-group input:not(:placeholder-shown) ~ .floating-label,
+        .floating-group select:focus ~ .floating-label,
+        .floating-group select:valid ~ .floating-label {
+            top: 8px;
+            left: 16px;
+            font-size: 12px;
+            color: #0E7C9D;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen relative font-body-md overflow-x-hidden">
+<!-- Organic Background Blobs -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none opacity-40">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-surface-container-highest to-surface-bright blur-[100px]"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-gradient-to-tl from-surface-container-high to-surface-container blur-[120px]"></div>
+</div>
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-[72px] z-50 bg-white/55 backdrop-blur-[20px] dark:bg-surface-dim/55 border-b border-white/30 dark:border-outline-variant/30 shadow-sm dark:shadow-none font-body-md text-body-md">
+<div class="flex justify-between items-center px-lg h-[72px] w-full max-w-container-max mx-auto">
+<!-- Brand -->
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">ecg_heart</span>
+                HeartGuard AI
+            </a>
+<!-- Navigation -->
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Home</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Prediction</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Analytics</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Model Performance</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">About</a>
+</nav>
+<!-- Trailing Action -->
+<button class="hidden md:block bg-primary-container text-white px-6 py-2 rounded-full font-label-md text-label-md hover:bg-primary transition-colors">
+                Try Prediction
+            </button>
+<!-- Mobile Menu Icon (Placeholder) -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[104px] pb-xl px-margin-mobile md:px-gutter max-w-container-max mx-auto relative z-10">
+<!-- Header Section -->
+<div class="mb-lg text-center">
+<h1 class="font-display-lg text-display-lg text-primary mb-sm">Clinical Prediction Form</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Enter patient clinical data below to generate a high-precision cardiovascular risk assessment using HeartGuard AI's predictive model.
+            </p>
+</div>
+<!-- Form Container -->
+<form action="#" class="grid grid-cols-4 md:grid-cols-12 gap-gutter" method="POST">
+<!-- Basic Info Card -->
+<div class="col-span-4 md:col-span-12 glass-panel p-md md:p-lg">
+<div class="flex items-center gap-sm mb-md border-b border-white/60 pb-sm">
+<span class="material-symbols-outlined text-primary text-2xl">person</span>
+<h2 class="font-headline-md text-headline-md text-primary">Basic Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Age -->
+<div class="floating-group">
+<input class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none" id="age" name="age" placeholder=" " required="" type="number"/>
+<label class="floating-label font-label-sm" for="age">Age (Years)</label>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Sex -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="sex" name="sex" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="1">Male</option>
+<option value="0">Female</option>
+</select>
+<label class="floating-label font-label-sm" for="sex">Sex</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+</div>
+</div>
+<!-- Clinical Measurements Card -->
+<div class="col-span-4 md:col-span-12 glass-panel p-md md:p-lg">
+<div class="flex items-center gap-sm mb-md border-b border-white/60 pb-sm">
+<span class="material-symbols-outlined text-primary text-2xl">vital_signs</span>
+<h2 class="font-headline-md text-headline-md text-primary">Clinical Measurements</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Resting Blood Pressure -->
+<div class="floating-group">
+<input class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none" id="trestbps" name="trestbps" placeholder=" " required="" type="number"/>
+<label class="floating-label font-label-sm" for="trestbps">Resting BP (mm Hg)</label>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Serum Cholesterol -->
+<div class="floating-group">
+<input class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none" id="chol" name="chol" placeholder=" " required="" type="number"/>
+<label class="floating-label font-label-sm" for="chol">Serum Chol (mg/dl)</label>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Fasting Blood Sugar -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="fbs" name="fbs" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="1">&gt; 120 mg/dl (True)</option>
+<option value="0">&lt;= 120 mg/dl (False)</option>
+</select>
+<label class="floating-label font-label-sm" for="fbs">Fasting Blood Sugar</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+</div>
+</div>
+<!-- Heart & Exercise Info Card -->
+<div class="col-span-4 md:col-span-12 glass-panel p-md md:p-lg">
+<div class="flex items-center gap-sm mb-md border-b border-white/60 pb-sm">
+<span class="material-symbols-outlined text-primary text-2xl">directions_run</span>
+<h2 class="font-headline-md text-headline-md text-primary">Heart &amp; Exercise Data</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Maximum Heart Rate -->
+<div class="floating-group">
+<input class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none" id="thalach" name="thalach" placeholder=" " required="" type="number"/>
+<label class="floating-label font-label-sm" for="thalach">Max Heart Rate</label>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Exercise Induced Angina -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="exang" name="exang" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="1">Yes</option>
+<option value="0">No</option>
+</select>
+<label class="floating-label font-label-sm" for="exang">Exercise Angina</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- ST Depression -->
+<div class="floating-group">
+<input class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none" id="oldpeak" name="oldpeak" placeholder=" " required="" step="0.1" type="number"/>
+<label class="floating-label font-label-sm" for="oldpeak">ST Depression</label>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Slope -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="slope" name="slope" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="0">Upsloping</option>
+<option value="1">Flat</option>
+<option value="2">Downsloping</option>
+</select>
+<label class="floating-label font-label-sm" for="slope">ST Peak Slope</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+</div>
+</div>
+<!-- Additional Attributes Card -->
+<div class="col-span-4 md:col-span-12 glass-panel p-md md:p-lg">
+<div class="flex items-center gap-sm mb-md border-b border-white/60 pb-sm">
+<span class="material-symbols-outlined text-primary text-2xl">list_alt</span>
+<h2 class="font-headline-md text-headline-md text-primary">Additional Attributes</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Chest Pain Type -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="cp" name="cp" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="0">Typical Angina</option>
+<option value="1">Atypical Angina</option>
+<option value="2">Non-anginal Pain</option>
+<option value="3">Asymptomatic</option>
+</select>
+<label class="floating-label font-label-sm" for="cp">Chest Pain Type</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Resting ECG -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="restecg" name="restecg" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="0">Normal</option>
+<option value="1">ST-T Wave Abnormality</option>
+<option value="2">Left Ventricular Hypertrophy</option>
+</select>
+<label class="floating-label font-label-sm" for="restecg">Resting ECG Results</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+<!-- Thal -->
+<div class="floating-group">
+<select class="glass-input w-full px-sm pb-xs pt-[28px] h-[56px] focus:outline-none focus:ring-0 text-on-surface font-body-md bg-transparent border-none appearance-none" id="thal" name="thal" required="">
+<option disabled="" hidden="" selected="" value=""></option>
+<option value="1">Normal</option>
+<option value="2">Fixed Defect</option>
+<option value="3">Reversable Defect</option>
+</select>
+<label class="floating-label font-label-sm" for="thal">Thalassemia</label>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+<div class="absolute inset-0 border border-white/60 rounded-xl pointer-events-none group-focus-within:border-primary-container"></div>
+</div>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="col-span-4 md:col-span-12 mt-md flex justify-end">
+<button class="bg-primary-container text-white px-xl py-[16px] rounded-full font-headline-md text-headline-md hover:bg-primary transition-all duration-300 shadow-sm hover:shadow-md flex items-center gap-sm" type="submit">
+<span class="material-symbols-outlined">analytics</span>
+                    Predict Heart Disease Risk
+                </button>
+</div>
+</form>
+</main>
+<!-- Footer -->
+<footer class="w-full py-lg mt-xl bg-white/55 backdrop-blur-[20px] dark:bg-surface-dim/55 border-t border-white/60 dark:border-outline-variant/60 relative z-10">
+<div class="flex flex-col items-center gap-md px-margin-mobile md:px-lg max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim">
+                HeartGuard AI
+            </div>
+<nav class="flex flex-wrap justify-center gap-md font-label-md text-label-md">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed Transition-all duration-300" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed Transition-all duration-300" href="#">Terms of Service</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed Transition-all duration-300" href="#">Medical Methodology</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed Transition-all duration-300" href="#">Contact</a>
+</nav>
+<div class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant">
+                © 2024 HeartGuard AI. Clinical Precision in Prediction.
+            </div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HeartGuard AI - Prediction Results</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0e7c9d",
+                        "surface-container-highest": "#d4e4f8",
+                        "surface-container": "#e3efff",
+                        "inverse-on-surface": "#e8f1ff",
+                        "surface-container-low": "#edf4ff",
+                        "on-surface-variant": "#3f484d",
+                        "on-tertiary-fixed": "#002112",
+                        "surface-bright": "#f7f9ff",
+                        "secondary-container": "#988cff",
+                        "surface": "#f7f9ff",
+                        "outline": "#6f787e",
+                        "on-tertiary-fixed-variant": "#005234",
+                        "on-tertiary-container": "#e6ffed",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#7cd1f6",
+                        "on-secondary-fixed-variant": "#4334a3",
+                        "on-primary-fixed-variant": "#004d63",
+                        "surface-dim": "#ccdcf0",
+                        "on-surface": "#0d1d2b",
+                        "secondary-fixed-dim": "#c7bfff",
+                        "surface-variant": "#d4e4f8",
+                        "inverse-surface": "#233241",
+                        "outline-variant": "#bec8ce",
+                        "tertiary-container": "#008356",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#2e1a8f",
+                        "primary-fixed": "#bce9ff",
+                        "inverse-primary": "#7cd1f6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#6bdba4",
+                        "on-primary": "#ffffff",
+                        "background": "#f7f9ff",
+                        "on-secondary-fixed": "#170065",
+                        "on-primary-container": "#f3faff",
+                        "secondary-fixed": "#e4dfff",
+                        "on-error": "#ffffff",
+                        "on-background": "#0d1d2b",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#88f8bf",
+                        "secondary": "#5b4ebc",
+                        "tertiary": "#006743",
+                        "surface-tint": "#006783",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#daeafe",
+                        "primary": "#00627d",
+                        "on-primary-fixed": "#001f2a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "20": "20px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xs": "8px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Open Sans"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Open Sans"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Glassmorphism Utility */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(31, 41, 55, 0.08);
+            border-radius: 20px;
+        }
+        
+        .glass-amber {
+            background-color: rgba(255, 218, 214, 0.3); /* Approximation of a warning/amber tint using error-container mixed */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 218, 214, 0.6);
+            box-shadow: 0 8px 32px rgba(31, 41, 55, 0.08);
+            border-radius: 20px;
+        }
+
+        /* SVG Donut Animation */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 1s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md min-h-screen relative overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Ambient Background Layer -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-surface-container rounded-full blur-[100px] opacity-70"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary-fixed-dim rounded-full blur-[120px] opacity-30"></div>
+</div>
+<!-- TopNavBar (Level 3 - Nav Shell) -->
+<nav class="bg-white/55 backdrop-blur-[20px] dark:bg-surface-dim/55 fixed top-0 w-full h-[72px] border-b border-white/30 dark:border-outline-variant/30 shadow-sm dark:shadow-none z-50">
+<div class="flex justify-between items-center px-lg h-[72px] w-full max-w-container-max mx-auto">
+<!-- Brand Logo -->
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim flex items-center gap-2">
+<span class="material-symbols-outlined icon-fill text-[32px]">favorite</span>
+<span>HeartGuard AI</span>
+</div>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Home</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary dark:border-primary-fixed-dim pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Prediction</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Analytics</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">Model Performance</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-medium hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">About</a>
+</div>
+<!-- Trailing Action -->
+<button class="font-body-md text-body-md bg-primary text-on-primary px-6 py-2 rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm active:scale-95 duration-200 hidden md:block">
+                Try Prediction
+            </button>
+<!-- Mobile Menu Icon (Placeholder) -->
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas (Level 2) -->
+<main class="relative z-10 pt-[120px] pb-xl px-margin-mobile md:px-lg max-w-container-max mx-auto">
+<!-- Header Section -->
+<header class="mb-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xs hidden md:block">Analysis Results</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs md:hidden">Analysis Results</h1>
+<p class="font-body-lg text-body-lg text-outline">Patient ID: #HG-8842-A • Processed today at 09:41 AM</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-4 md:grid-cols-12 gap-gutter">
+<!-- Result Card & Probability Visual (Span 8) -->
+<section class="col-span-4 md:col-span-8 glass-panel p-md md:p-lg flex flex-col md:flex-row items-center gap-lg">
+<!-- Circular Indicator -->
+<div class="relative w-48 h-48 flex-shrink-0 flex items-center justify-center">
+<svg class="w-full h-full" viewbox="0 0 120 120">
+<!-- Background Circle -->
+<circle class="stroke-outline-variant opacity-20" cx="60" cy="60" fill="none" r="54" stroke-width="8"></circle>
+<!-- Progress Circle (78%) -->
+<circle class="stroke-error progress-ring__circle" cx="60" cy="60" fill="none" r="54" stroke-dasharray="339.292" stroke-dashoffset="74.64" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="font-display-lg text-display-lg text-error leading-none">78<span class="font-headline-md text-headline-md">%</span></span>
+<span class="font-label-sm text-label-sm text-outline mt-1 uppercase tracking-widest">Risk Score</span>
+</div>
+</div>
+<!-- Result Details -->
+<div class="flex-grow text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-error-container/50 border border-error-container rounded-full mb-4">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<span class="font-label-md text-label-md text-error font-semibold uppercase tracking-wider">Higher Risk Detected</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Elevated Cardiovascular Risk</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                        Based on the uploaded biometric data and historical health records, our model indicates a significantly elevated risk of cardiovascular events within the next 5 years. Immediate clinical consultation is highly recommended.
+                    </p>
+<button class="bg-primary text-on-primary rounded-full px-6 py-3 font-label-md text-label-md font-semibold shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-colors inline-flex items-center gap-2 active:scale-95 duration-200">
+<span class="material-symbols-outlined">download</span>
+                        Download Detailed Report
+                    </button>
+</div>
+</section>
+<!-- Key Risk Factors (Span 4) -->
+<aside class="col-span-4 md:col-span-4 glass-panel p-md flex flex-col">
+<div class="flex items-center gap-2 mb-md pb-xs border-b border-outline-variant/30">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Key Risk Factors</h3>
+</div>
+<p class="font-label-sm text-label-sm text-outline mb-sm uppercase tracking-wider">Primary Contributors</p>
+<div class="flex flex-wrap gap-2 mb-lg">
+<span class="px-3 py-1.5 bg-error-container/30 border border-error-container/50 text-error rounded-full font-label-md text-label-md">High LDL Cholesterol</span>
+<span class="px-3 py-1.5 bg-error-container/30 border border-error-container/50 text-error rounded-full font-label-md text-label-md">Systolic BP &gt; 140</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mb-sm uppercase tracking-wider">Secondary Contributors</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 bg-surface-container-highest border border-outline-variant/50 text-on-surface-variant rounded-full font-label-md text-label-md">Age &gt; 60</span>
+<span class="px-3 py-1.5 bg-surface-container-highest border border-outline-variant/50 text-on-surface-variant rounded-full font-label-md text-label-md">Family History</span>
+<span class="px-3 py-1.5 bg-surface-container-highest border border-outline-variant/50 text-on-surface-variant rounded-full font-label-md text-label-md">Sedentary Lifestyle</span>
+</div>
+</aside>
+<!-- Lifestyle Suggestions (Span 12, Grid of 3) -->
+<section class="col-span-4 md:col-span-12 mt-4">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-tertiary">monitor_heart</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Recommended Actions</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="glass-panel p-md flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined icon-fill">stethoscope</span>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-2">Clinical Review</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Schedule an appointment with your primary care physician or cardiologist to review these AI-generated findings in detail.</p>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel p-md flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined icon-fill">restaurant_menu</span>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-2">Dietary Adjustment</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Consider a heart-healthy diet such as the Mediterranean diet, focusing on reducing saturated fats and sodium intake.</p>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel p-md flex flex-col items-start hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 flex items-center justify-center mb-4 text-tertiary">
+<span class="material-symbols-outlined icon-fill">directions_run</span>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-2">Physical Activity</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Gradually introduce moderate aerobic exercise, aiming for at least 150 minutes per week, pending physician approval.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Area (Includes Disclaimer + JSON Footer) -->
+<footer class="mt-xl relative z-10 pb-lg">
+<!-- Medical Disclaimer (Amber Tinted Glass) -->
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-lg mb-lg">
+<div class="glass-amber p-md flex items-start gap-4">
+<span class="material-symbols-outlined text-error mt-1 flex-shrink-0">info</span>
+<div>
+<h5 class="font-label-md text-label-md font-bold text-on-surface mb-1 uppercase tracking-wide">Important Medical Disclaimer</h5>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">
+                        HeartGuard AI is a predictive analytics tool designed to assist healthcare professionals and individuals in assessing potential cardiovascular risk based on provided data. It is not a diagnostic device and does not substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+                    </p>
+</div>
+</div>
+</div>
+<!-- JSON Defined Footer -->
+<div class="w-full py-lg mt-xl bg-white/55 backdrop-blur-[20px] dark:bg-surface-dim/55 border-t border-white/60 dark:border-outline-variant/60 flex flex-col items-center gap-md px-margin-mobile md:px-lg max-w-container-max mx-auto flat no shadows transition-all duration-300">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed-dim">
+                HeartGuard AI
+            </div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed transition-colors" href="#">Medical Methodology</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary-container dark:hover:text-primary-fixed transition-colors" href="#">Contact</a>
+</div>
+<div class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant text-center mt-sm">
+                © 2024 HeartGuard AI. Clinical Precision in Prediction.
+            </div>
+</div>
+</footer>
+<!-- Initial Animation Script for Donut Chart -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Slight delay to allow render before animating
+            setTimeout(() => {
+                const circle = document.querySelector('.progress-ring__circle');
+                if(circle) {
+                    // Force a reflow
+                    circle.getBoundingClientRect();
+                    // Set final state (78% of 339.292 = 264.647 visible. Offset = 339.292 - 264.647 = 74.64)
+                    circle.style.strokeDashoffset = '74.64';
+                }
+            }, 100);
+        });
+    </script>
+</body></html>
