@@ -166,17 +166,33 @@ def serve_static(path: str):
 @app.route("/api", methods=["GET"])
 @app.route("/api/", methods=["GET"])
 @app.route("/api/index", methods=["GET", "POST", "OPTIONS"])
+@app.route("/api/index.py", methods=["GET", "POST", "OPTIONS"])
 def vercel_entrypoint_fallback():
+    if request.args.get("debug"):
+        return jsonify({
+            "path": request.path,
+            "headers": dict(request.headers),
+            "environ_keys": [k for k in request.environ.keys() if "HTTP" in k or "URI" in k or "PATH" in k]
+        })
+
+    # Header sources for original URI before rewrite
+    raw = (
+        request.headers.get("X-Forwarded-Uri", "")
+        or request.headers.get("X-Original-Url", "")
+        or request.environ.get("REQUEST_URI", "")
+        or request.args.get("__route", "")
+    )
+
     if request.method == "POST":
+        if "report" in raw:
+            return download_report()
         return predict()
-    for h in ("X-Forwarded-Uri", "X-Original-Url", "X-Matched-Path"):
-        target = request.headers.get(h, "")
-        if "/metadata" in target:
-            return get_metadata()
-        if "/dataset" in target:
-            return get_dataset_stats()
-        if "/predict" in target:
-            return predict()
+
+    if "metadata" in raw:
+        return get_metadata()
+    if "dataset" in raw:
+        return get_dataset_stats()
+
     return health()
 
 
