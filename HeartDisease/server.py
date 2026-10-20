@@ -136,31 +136,6 @@ def compute_dataset_stats(df: pd.DataFrame) -> dict[str, Any]:
     }
 
 
-# ── Static Web App Routes ─────────────────────────────────────────────────────
-
-@app.route("/")
-def serve_index():
-    return send_from_directory(str(STATIC_DIR), "index.html")
-
-
-@app.route("/<path:path>")
-def serve_static(path: str):
-    # Reject API subpaths falling through
-    if path.startswith("api/"):
-        return jsonify({"error": f"API endpoint not found: /{path}"}), 404
-
-    file_path = STATIC_DIR / path
-    if file_path.exists() and file_path.is_file():
-        return send_from_directory(str(STATIC_DIR), path)
-
-    # Return 404 for missing assets (CSS, JS, images) so browser doesn't get index.html
-    if any(path.endswith(ext) for ext in [".css", ".js", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".json", ".woff", ".woff2", ".ttf"]):
-        return f"Asset not found: {path}", 404
-
-    # Single-page navigation fallback
-    return send_from_directory(str(STATIC_DIR), "index.html")
-
-
 # ── API Endpoints (Dual /api/* and /* routes to handle Vercel rewrites) ────────
 
 @app.route("/api", methods=["GET"])
@@ -376,6 +351,31 @@ def download_report():
         as_attachment=True,
         download_name="HeartGuard_Patient_Assessment_Report.pdf",
     )
+
+
+# ── Static Web App Catch-All Routes (must be AFTER all API routes) ────────────
+
+@app.route("/")
+def serve_index():
+    return send_from_directory(str(STATIC_DIR), "index.html")
+
+
+@app.route("/<path:path>")
+def serve_static(path: str):
+    # Reject API subpaths falling through
+    if path.startswith("api/") or path.startswith("api"):
+        return jsonify({"error": f"API endpoint not found: /{path}"}), 404
+
+    file_path = STATIC_DIR / path
+    if file_path.exists() and file_path.is_file():
+        return send_from_directory(str(STATIC_DIR), path)
+
+    # Return 404 for missing assets so browser doesn't get index.html
+    if any(path.endswith(ext) for ext in [".css", ".js", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".json", ".woff", ".woff2", ".ttf"]):
+        return f"Asset not found: {path}", 404
+
+    # Single-page navigation fallback
+    return send_from_directory(str(STATIC_DIR), "index.html")
 
 
 @app.errorhandler(404)
