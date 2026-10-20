@@ -166,17 +166,45 @@ def serve_static(path: str):
 @app.route("/api", methods=["GET"])
 @app.route("/api/", methods=["GET"])
 @app.route("/api/index", methods=["GET", "POST", "OPTIONS"])
+def vercel_entrypoint_fallback():
+    if request.method == "POST":
+        return predict()
+    for h in ("X-Forwarded-Uri", "X-Original-Url", "X-Matched-Path"):
+        target = request.headers.get(h, "")
+        if "/metadata" in target:
+            return get_metadata()
+        if "/dataset" in target:
+            return get_dataset_stats()
+        if "/predict" in target:
+            return predict()
+    return health()
+
+
 @app.route("/api/health", methods=["GET"])
 @app.route("/health", methods=["GET"])
 def health():
-    if request.method == "POST":
-        return predict()
     return jsonify({
         "status": "healthy",
         "model_loaded": model is not None,
         "best_model_name": metadata.get("best_model_name") if metadata else None,
         "trained_at": metadata.get("trained_at") if metadata else None,
         "features": FEATURE_COLUMNS,
+    })
+
+
+@app.route("/api/debug-env", methods=["GET"])
+def debug_env():
+    env_vars = {
+        k: str(v)
+        for k, v in request.environ.items()
+        if isinstance(v, (str, int, float, bool)) and "SECRET" not in k and "KEY" not in k
+    }
+    return jsonify({
+        "path": request.path,
+        "environ_path_info": request.environ.get("PATH_INFO"),
+        "environ_query_string": request.environ.get("QUERY_STRING"),
+        "headers": dict(request.headers),
+        "env_vars": env_vars,
     })
 
 
